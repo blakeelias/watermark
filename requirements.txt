@@ -1,3 +1,4 @@
 qrcode
 qreader
 opencv-python
+zbar
