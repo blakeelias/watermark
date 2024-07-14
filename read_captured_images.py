@@ -66,6 +66,12 @@ def save_image(image_array, output_path):
     output_image = Image.fromarray((image_array * 255).astype(np.uint8))
     output_image.save(output_path)
 
+def validate_image_heatmap(saved_image_path, expected, out_path):
+    image = process_image(image_path)
+    patched_image = create_patched_image(image)
+    difference_image = calculate_absolute_relative_difference(patched_image, expected)
+    save_image(difference_image, out_path)
+
 if __name__ == "__main__":
   image_path = 'example_image.png'
   expected_text = 'expected_text'
