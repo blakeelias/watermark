@@ -25,3 +25,8 @@ def validate_image(image_path: str, expected_text: str) -> bool:
     return False
   return read_captured_image(image_path) == expected_text
 
+if __name__ == "__main__":
+  image_path = 'example_image.png'
+  expected_text = 'expected_text'
+  is_match = validate_image(image_path, expected_text)
+  print(f'Captured image matches?: {is_match}')
