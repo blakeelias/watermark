@@ -3,10 +3,11 @@ from PIL import ImageOps
 import os
 import time
 import hashlib
-from typing import List
+from typing import List, Tuple
 
 
-def generate_qr_codes(image_path: str, num_images: int) -> List[(str, str)]:
+def generate_qr_codes(image_path: str,
+                      num_images: int) -> Tuple[List[str], List[str]]:
     '''
     Create a folder to store the images.
     Returns:
@@ -34,7 +35,7 @@ def generate_qr_codes(image_path: str, num_images: int) -> List[(str, str)]:
         inverted_img = ImageOps.invert(img)
 
         # Save the inverted image
-        filename = f"{folder_name}/inverted_qr_code_{i+1}.png"
+        filename = f"{image_path}/inverted_qr_code_{i+1}.png"
         inverted_img.save(filename)
 
         filenames.append(filename)
@@ -42,7 +43,7 @@ def generate_qr_codes(image_path: str, num_images: int) -> List[(str, str)]:
 
         print(f"Generated QR code {i+1}/{num_images}")
 
-    return list(zip(filenames, expected_texts))
+    return filenames, expected_texts
 
 
 if __name__ == "__main__":
