@@ -21,9 +21,9 @@ def main():
     capture_image(save_path)
 
     # Validate captured image
-    is_match = read_captured_images.validate_image(save_path,
-                                                   expected_texts[i])
-    print(f'Captured image {i} matches?: {is_match}')
+    # is_match = read_captured_images.validate_image(save_path,
+    #                                                expected_texts[i])
+    # print(f'Captured image {i} matches?: {is_match}')
 
 
 def display_image(image_path: str) -> None:
