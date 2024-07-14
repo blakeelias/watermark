@@ -5,6 +5,9 @@ import os
 import pygame
 import sys
 
+SSH_USER = "guest"
+SSH_HOST = "rpi5.local"
+
 def main():
     image_paths, expected_texts = generate_hashed_images.generate_qr_codes(
         '/tmp/watermark_noise', 16)
@@ -64,11 +67,16 @@ def display_image_pygame(screen, image_path: str) -> None:
     screen.blit(image, (x, y))
 
 def capture_image(image_save_path: str) -> None:
-    print(f'Capturing camera image; saving to {image_save_path}')
-    # Capture image from camera
-    os.system('libcamera-vid -t 100 -o /tmp/video_capture.mp4')
-    # Extract a single frame from the video and save it as a PNG image
-    os.system(f'ffmpeg -i /tmp/video_capture.mp4 -vframes 1 {image_save_path}')
+  print(f'Capturing camera image; saving to {image_save_path}')
+  # Capture image from camera
+  cmd = 'libcamera-vid -t 100 -o /tmp/video_capture.mp4'
+  os.system(f'ssh {SSH_USER}@{SSH_HOST} {cmd}')
+
+  # Extract a single frame from the video and save it as a PNG image
+  cmd = f'ffmpeg -i /tmp/video_capture.mp4 -vframes 1 {image_save_path}'
+  os.system(f'ssh {SSH_USER}@{SSH_HOST} {cmd}')
+  os.system(f'scp {SSH_USER}@{SSH_HOST}:{image_save_path} {image_save_path}')
+
 
 if __name__ == "__main__":
     main()
