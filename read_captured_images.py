@@ -1,5 +1,6 @@
-import qreader
+from qreader import QReader
 import cv2
+
 
 def read_captured_image(image_path: str) -> str:
   # Create a QReader instance
@@ -14,7 +15,7 @@ def read_captured_image(image_path: str) -> str:
   # Check if the QR code was successfully decoded
   if decoded_text is None:
     raise ValueError("QR code not found in the image")
-  
+
   return decoded_text
 
 
@@ -24,4 +25,3 @@ def validate_image(image_path: str, expected_text: str) -> bool:
   except:
     return False
   return read_captured_image(image_path) == expected_text
-
