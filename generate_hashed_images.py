@@ -3,11 +3,18 @@ from PIL import ImageOps
 import os
 import time
 import hashlib
+from typing import List
 
-def generate_qr_codes(num_images):
-    # Create a folder to store the images
-    folder_name = "images"
-    os.makedirs(folder_name, exist_ok=True)
+
+def generate_qr_codes(image_path: str, num_images: int) -> List[(str, str)]:
+    '''
+    Create a folder to store the images.
+    Returns:
+        A list of the image paths.
+    '''
+    os.makedirs(image_path, exist_ok=True)
+    filenames = []
+    expected_texts = []
 
     for i in range(num_images):
         # Get the current timestamp and hash it
@@ -30,7 +37,13 @@ def generate_qr_codes(num_images):
         filename = f"{folder_name}/inverted_qr_code_{i+1}.png"
         inverted_img.save(filename)
 
+        filenames.append(filename)
+        expected_texts.append(hashed_timestamp)
+
         print(f"Generated QR code {i+1}/{num_images}")
+
+    return list(zip(filenames, expected_texts))
+
 
 if __name__ == "__main__":
     num_images = 50  # Change this to the desired number of images

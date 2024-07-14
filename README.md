@@ -6,3 +6,9 @@ Physical watermarks to prevent video tampering
 ```
 pip install -r requirements.txt
 ```
+
+## Run
+
+```
+python generate_capture_loop.py
+```
