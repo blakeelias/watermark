@@ -1,6 +1,5 @@
 qrcode
 qreader
 opencv-python
-zbar
 pygame
 numpy
