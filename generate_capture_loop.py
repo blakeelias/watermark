@@ -40,10 +40,28 @@ def main():
 
 def display_image_pygame(screen, image_path: str) -> None:
     print(f'Displaying {image_path}')
+    screen.fill((0, 0, 0))  # Fill screen with black
+    
     image = pygame.image.load(image_path)
+    image_width, image_height = image.get_size()
     screen_width, screen_height = screen.get_size()
-    image = pygame.transform.scale(image, (screen_width, screen_height))
-    screen.blit(image, (0, 0))
+    
+    # Calculate scaling factor to fit image within screen
+    scale = min(screen_width / image_width, screen_height / image_height)
+    
+    # Calculate new dimensions
+    new_width = int(image_width * scale)
+    new_height = int(image_height * scale)
+    
+    # Scale image
+    image = pygame.transform.scale(image, (new_width, new_height))
+    
+    # Calculate position to center image
+    x = (screen_width - new_width) // 2
+    y = (screen_height - new_height) // 2
+    
+    # Blit image onto screen
+    screen.blit(image, (x, y))
 
 def capture_image(image_save_path: str) -> None:
     print(f'Capturing camera image; saving to {image_save_path}')
