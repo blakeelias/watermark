@@ -66,7 +66,7 @@ def generate_checkerboards(
         timestamp = str(time.time()).encode('utf-8')
         print(timestamp)
         hashed_timestamp = hashlib.sha256(timestamp).hexdigest()
-        np.radom.seed(hashed_timestamp)
+        np.random.seed(hashed_timestamp)
 
         # Create random checkerboard pattern using datetime as a seed
         checkerboard = np.random.randint(0, 2, size=checkerboard_dims)
